@@ -4,6 +4,8 @@ class Scene2 extends Phaser.Scene{
     }
 
     create(){
+        this.score=0;
+
         //background
         this.background = this.add.tileSprite(0, 0, config.width, config.height, "background");
         this.background.setOrigin(0, 0); 
@@ -25,8 +27,12 @@ class Scene2 extends Phaser.Scene{
         this.rocket2 = this.add.sprite(config.width, config.height/2, "rocket");
 
         //coin
-        this.coin = this.physics.add.sprite(config.width, config.height/2, "coin");
-        this.coin.play("coin_anim");
+        this.coin1 = this.physics.add.sprite(config.width, config.height/2, "coin");
+        this.coin2 = this.physics.add.sprite(config.width/2, config.height/2, "coin");
+        this.coin3 = this.physics.add.sprite(config.width/2 -80, config.height/2, "coin");
+        this.coin1.play("coin_anim");
+        this.coin2.play("coin_anim");
+        this.coin3.play("coin_anim");
 
         this.obstacles = this.physics.add.group();
         this.obstacles.add(this.obstacle1);
@@ -35,7 +41,13 @@ class Scene2 extends Phaser.Scene{
         this.obstacles.add(this.rocket1);
         this.obstacles.add(this.rocket2);
 
+        this.coins = this.physics.add.group();
+        this.coins.add(this.coin1);
+        this.coins.add(this.coin2);
+        this.coins.add(this.coin3);
+
         this.physics.add.overlap(this.player, this.obstacles, this.hurtPlayer, null, this);
+        this.physics.add.overlap(this.player, this.coins, this.pickCoin, null, this);
 
         this.cursorKeys = this.input.keyboard.createCursorKeys();
     }
@@ -53,7 +65,21 @@ class Scene2 extends Phaser.Scene{
         obstacle.y = randomY;
     }
 
+    //dgiwehbibviwbvbhb
+    pickCoin(player, coin){
+        this.score++;
+        console.log(this.score);
+        coin.disableBody(true, true);
+        this.resetCoin(coin);
+    }
+
+    resetCoin(coin){
+        var randomY = Phaser.Math.Between(0, config.height);
+        coin.enableBody(true, config.width, randomY, true, true);
+    }
+
     hurtPlayer(){
+        this.score=0;
         var explosion = this.physics.add.sprite(this.player.x , this.player.y, "explosion");
         explosion.play("explode");
 
@@ -88,20 +114,22 @@ class Scene2 extends Phaser.Scene{
         });
     }
 
-    moveCoin(){
-        this.coin.x -= 2;
+    moveCoin(coin){
+        coin.x -= 2;
 
-        if(this.coin.x == 0){
-            this.coin.x = config.width;
+        if(coin.x == 0){
+            coin.x = config.width;
             var randomY = Phaser.Math.Between(0, config.height);
-            this.coin.y = randomY;
+            coin.y = randomY;
         }
     }
 
     update(){
         this.background.tilePositionX += 2; 
 
-        this.moveCoin();
+        this.moveCoin(this.coin1);
+        this.moveCoin(this.coin2);
+        this.moveCoin(this.coin3);
         
         this.moveObstacle(this.obstacle1, 2);
         this.moveObstacle(this.obstacle2, 2);
