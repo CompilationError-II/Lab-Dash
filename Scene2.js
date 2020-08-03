@@ -50,6 +50,7 @@ class Scene2 extends Phaser.Scene{
         this.physics.add.overlap(this.player, this.coins, this.pickCoin, null, this);
 
         this.cursorKeys = this.input.keyboard.createCursorKeys();
+            this.scoreLabel= this.add.bitmapText(10,5,"pixelFont","SCORE",18)
     }
 
     moveObstacle(obstacle, speed){
@@ -67,8 +68,9 @@ class Scene2 extends Phaser.Scene{
 
     //dgiwehbibviwbvbhb
     pickCoin(player, coin){
-        this.score++;
+        this.score+=10;
         console.log(this.score);
+        this.scoreLabel.text="SCORE: "+this.score;
         coin.disableBody(true, true);
         this.resetCoin(coin);
     }
@@ -80,6 +82,7 @@ class Scene2 extends Phaser.Scene{
 
     hurtPlayer(){
         this.score=0;
+        this.scoreLabel.text="SCORE: "+this.score;    
         var explosion = this.physics.add.sprite(this.player.x , this.player.y, "explosion");
         explosion.play("explode");
 

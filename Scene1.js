@@ -30,6 +30,8 @@ class Scene1 extends Phaser.Scene{
             frameWidth: 32,
             frameHeight: 32
         });
+
+        this.load.bitmapFont("pixelFont", "assets/font/font.png", "assets/font/font.xml");
     }
 
     create(){
