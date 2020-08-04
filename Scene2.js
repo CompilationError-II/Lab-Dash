@@ -50,7 +50,7 @@ class Scene2 extends Phaser.Scene{
         this.physics.add.overlap(this.player, this.coins, this.pickCoin, null, this);
 
         this.cursorKeys = this.input.keyboard.createCursorKeys();
-            this.scoreLabel= this.add.bitmapText(10,5,"pixelFont","SCORE",18)
+            this.scoreLabel= this.add.bitmapText(10,5,"pixelFont","SCORE",20)
     }
 
     moveObstacle(obstacle, speed){

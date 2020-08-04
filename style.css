@@ -1,0 +1,59 @@
+@font-face {
+    font-family: 'arcadeclassicregular';
+    src: url('arcadeclassic-webfont.woff2') format('woff2'),
+         url('arcadeclassic-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+h1{
+    font-family: 'arcadeclassicregular',Arial,sans-serif ;
+   text-align: center;
+   font-size: 90px;
+    color: blueviolet;
+    background-color: darkcyan;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    box-shadow: 5px 4px 4px 5px blueviolet;
+    background-color: #bf992a;
+    text-shadow: 5px 4px 0px black;
+}
+
+body{
+    background-image: linear-gradient(blue,#72E1D1);
+    background-repeat: no-repeat;
+    display: block;
+    height: 850px;
+}
+canvas{
+    border-color:2px #bf992a;
+
+}
+
+h3{float: none;
+    border: 1px solid blue;
+text-align: center;
+height: 100px;
+width: 300px;
+top: 50%; 
+ left: 50%; 
+         
+}
+#location{
+    border: 2px solid blueviolet;
+    text-align: -webkit-center;
+    font-family: 'arcadeclassicregular',Arial,sans-serif ;
+    display: block;
+  margin-left: auto;
+  margin-right: auto;
+  height: 150px;
+width: 350px;
+font-size: 36px;
+margin-bottom: 50px;
+margin-top: 20px;
+/* box-shadow: 8px -6px 10px 1px darkgoldenrod; */
+box-shadow: 9px 6px darkgoldenrod;
+
+}
+
+

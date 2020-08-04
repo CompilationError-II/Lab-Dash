@@ -24,7 +24,8 @@ navigator.geolocation.getCurrentPosition((position) => {
     //  document.getElementById(`location1`).innerHTML=lat;
     //  document.getElementById(`location2`).innerHTML=lon;
       console.log(typeof lat)
-    
+      var time = new Date();
+      console.log(time.getHours() + ":" + time.getMinutes() + ":" + time.getSeconds());
       async function getc(){
     
     
@@ -37,7 +38,7 @@ navigator.geolocation.getCurrentPosition((position) => {
           
           return fetch(`http://open.mapquestapi.com/geocoding/v1/reverse?key=u6x7nLz17CyMEb4AmTCK96A2yGkMqepE&location=${a},${b}&includeRoadMetadata=true&includeNearestIntersection=true`)
           .then((r)  => r.json())
-          .then((r)=> console.log(r.results[0].locations[0].adminArea5))
+          .then((r)=> document.getElementById(`location`).innerHTML=`Welcome   `+`<br />` +`Time: `+time.getHours()+`:`+time.getMinutes()+`<br />`+`Your Location: `+(r.results[0].locations[0].adminArea5));
           // .then((r) => r.result);       
       }
       getc();
