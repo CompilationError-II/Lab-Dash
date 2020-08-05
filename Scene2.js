@@ -50,33 +50,39 @@ class Scene2 extends Phaser.Scene{
         this.physics.add.overlap(this.player, this.coins, this.pickCoin, null, this);
 
         this.cursorKeys = this.input.keyboard.createCursorKeys();
-            this.scoreLabel= this.add.bitmapText(10,5,"pixelFont","SCORE",20)
+        this.scoreLabel= this.add.bitmapText(10,5,"pixelFont","SCORE",20)
     }
 
-    moveObstacle(obstacle, speed){
-        obstacle.x -= speed;
+    moveObstacle(obstacle){
+        obstacle.x -= 2;
         if(obstacle.x == 0){
             this.resetObstaclePos(obstacle);
         }
     }
 
+    moveRocket(rocket, num){
+        rocket.x -= 4;
+        rocket.y += - Math.cos(rocket.x / num);
+        if(rocket.x == 0){
+            this.resetObstaclePos(rocket);
+        }
+    }
+
     resetObstaclePos(obstacle){
         obstacle.x = config.width;
-        var randomY = Phaser.Math.Between(0, config.height);
+        var randomY = Phaser.Math.Between(20, config.height-20);
         obstacle.y = randomY;
     }
 
-    //dgiwehbibviwbvbhb
     pickCoin(player, coin){
         this.score+=10;
-        console.log(this.score);
         this.scoreLabel.text="SCORE: "+this.score;
         coin.disableBody(true, true);
         this.resetCoin(coin);
     }
 
     resetCoin(coin){
-        var randomY = Phaser.Math.Between(0, config.height);
+        var randomY = Phaser.Math.Between(10, config.height-10);
         coin.enableBody(true, config.width, randomY, true, true);
     }
 
@@ -101,6 +107,7 @@ class Scene2 extends Phaser.Scene{
         this.player.enableBody(true, x, y, true, true);
         this.player.body.setGravityY(0);
         this.player.alpha = 0.5;
+        this.physics.world.colliders.destroy();
         
         var tween = this.tweens.add({
             targets: this.player,
@@ -112,6 +119,8 @@ class Scene2 extends Phaser.Scene{
                 this.player.alpha = 1;
                 this.player.setBounce(0.4);
                 this.player.body.setGravityY(800);
+                this.physics.add.overlap(this.player, this.obstacles, this.hurtPlayer, null, this);
+                this.physics.add.overlap(this.player, this.coins, this.pickCoin, null, this);
             },
             callbackScope: this
         });
@@ -134,12 +143,12 @@ class Scene2 extends Phaser.Scene{
         this.moveCoin(this.coin2);
         this.moveCoin(this.coin3);
         
-        this.moveObstacle(this.obstacle1, 2);
-        this.moveObstacle(this.obstacle2, 2);
-        this.moveObstacle(this.obstacle3, 2);
+        this.moveObstacle(this.obstacle1);
+        this.moveObstacle(this.obstacle2);
+        this.moveObstacle(this.obstacle3);
 
-        this.moveObstacle(this.rocket1, 4);
-        this.moveObstacle(this.rocket2, 4);
+        this.moveRocket(this.rocket1, 50);
+        this.moveRocket(this.rocket2, 100);
 
         if (this.cursorKeys.space.isDown) {
             this.player.setVelocityY(-200);
