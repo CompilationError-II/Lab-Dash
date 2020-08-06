@@ -50,7 +50,9 @@ class Scene2 extends Phaser.Scene{
         this.physics.add.overlap(this.player, this.coins, this.pickCoin, null, this);
 
         this.cursorKeys = this.input.keyboard.createCursorKeys();
-        this.scoreLabel= this.add.bitmapText(10,5,"pixelFont","SCORE",20)
+        this.scoreLabel= this.add.bitmapText(10,5,"pixelFont","SCORE",20);
+        this.jumpSound =this.sound.add("jump"); 
+
     }
 
     moveObstacle(obstacle){
@@ -79,6 +81,8 @@ class Scene2 extends Phaser.Scene{
         this.scoreLabel.text="SCORE: "+this.score;
         coin.disableBody(true, true);
         this.resetCoin(coin);
+        this.jumpSound.play(); 
+
     }
 
     resetCoin(coin){
